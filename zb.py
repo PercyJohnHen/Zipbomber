@@ -1,23 +1,41 @@
-import sys
+import argparse
 import zipfile as zf
 
-if len(sys.argv) !=2:
-    print(f"Usage: python {sys.argv[0]} <size_in_gb>")
-    sys.exit(1)
+parser = argparse.ArgumentParser(
+    description="Create a ZIP archive containing a highly compressible file."
+)
 
-size_gb = float(sys.argv[1])
-size_bytes = int(size_gb * 1000000000)
+parser.add_argument(
+    "-s", "--size",
+    type=float,
+    required=True,
+    help="Size Of Uncompressed File In GB."
+)
 
-zip_name = "zipbomb.zip"
-file_name = "data.txt"
-chunk_size = 1024*1024
+parser.add_argument(
+    "-nz", "--zip-name",
+    default="zip.zip",
+    help="Output Zipfile Name.(Optional, default=zip.zip)"
+)
 
+parser.add_argument(
+    "-nf", "--file-name",
+    default="data.txt",
+    help="Name of the data file txt.(optional, default=data.txt)"
+)
+
+args = parser.parse_args()
+
+size_in_bytes = int(args.size * 1_000_000_000)
+chunk_size = 1024 * 1024
 chunk = b"0" * chunk_size
-with zf.ZipFile(zip_name, "w", compression=zf.ZIP_DEFLATED) as Z:
-    with Z.open(file_name, "w") as F:
-        remaining = size_bytes
+
+with zf.ZipFile(args.zip_name, "w", compression=zf.ZIP_DEFLATED) as Z:
+    with Z.open(args.file_name, "w") as F:
+        remaining = size_in_bytes
         while remaining > 0:
-            n = min(chunk_size,remaining)
+            n = min(chunk_size, remaining)
             F.write(chunk[:n])
-            remaining-=n
-print(f"zimbomb created")
+            remaining -= n
+
+print(f"Created {args.zip_name}")
