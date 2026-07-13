@@ -14,13 +14,25 @@ A simple Python command-line tool that processes a number using a single command
 Run the program with:
 
 ```bash
-python zb.py <file size in **GB**>
+python zb.py -s <file size in **GB**>
 ```
 
 ### Example
 
 ```bash
-python zb.py 20
+python zb.py -s 120
 ```
+
+### Example(using the binary)
+
+```bash
+zb.exe -s 120
+```
+
+### Use the -h for help
+```bash
+zb.exe -h or zb.exe --help
+```
+
 
 
