@@ -6,7 +6,7 @@ A simple Python command-line tool that processes a number using a single command
 
 ## 📖 Overview
 
-**ZipBomber** is a lightweight Python CLI application that takes a number as input and create a zipbomb with a bomb size of that number in **GB**.
+**ZipBomber** is a lightweight Python CLI application that takes a number as input and creates a zipbomb with a bomb size of that number in **GB**.
 
 
 ## ▶️ Usage
